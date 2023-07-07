@@ -1,0 +1,7 @@
+1.the first rule is thet the network manufacturer should respect the world standards like the ISO, TCP/Ip and the IEEE 802 standards.
+2.Yes it is a independant and high level model which
+3.No it is a high level and independant model 
+
+1.Application, Datalink, Network, physical, presentation, session, transport 
+2.physical, datalink, network, transport, session,  presentation, application
+3.physical, transport, session, presentation, application, datalink, Network 
