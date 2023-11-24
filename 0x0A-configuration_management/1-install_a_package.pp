@@ -1,10 +1,14 @@
 # Install flask 
-exec { 'apt-get update':
-    command => '/usr/bin/apt-get update'
+package { 'python3-pip':
+  ensure => installed,
 }
 
-package { 'flask':
-  ensure   => '2.1.0',
-  provider => 'pip3',
-  require => Exec['apt-get update']
+package { 'python3-dev':
+  ensure => installed,
+}
+
+exec { 'install_flask':
+  command => '/usr/bin/pip3 install flask==2.1.0',
+  path    => ['/usr/bin'],
+  require => [Package['python3-pip'], Package['python3-dev']],
 }
