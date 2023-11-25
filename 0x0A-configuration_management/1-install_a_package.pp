@@ -1,5 +1,6 @@
 # Install flask 
 package {'flask':
-  ensure   => installed,
-  provider => 'pip3',
+ensure   => installed,
+ensure   => '2.1.0',
+provider => 'pip3',
 }
