@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# this script if for client configuration
+Host 52393-web-01
+ HostName 97.98.98.98
+ User ubuntu
+ Port 22
+ IdentityFile ~/.ssh/school
+ GSSAPIAuthentication yes
+ PasswordAuthentication no
