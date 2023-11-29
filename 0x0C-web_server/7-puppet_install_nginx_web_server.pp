@@ -34,7 +34,7 @@ exec {'apt-update':
 -> file {'/var/www/html/index.html':
   ensure  => 'file',
   path => '/var/www/html/index.html',
-  content => "Holberton School\n",
+  content => "Hello World!\n",
 }
 
 -> file {'custom_404.html':
