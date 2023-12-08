@@ -22,8 +22,8 @@ frontend web-front
 
 backend web-backend
         balance roundrobin
-        server 52393-web-01 100.26.231.12:443 check
-        server 52393-web-02 54.197.101.47:443 check
+        server 52393-web-01 100.26.231.12:80 check
+        server 52393-web-02 54.197.101.47:80 check
 
 frontend www-http
    bind :80
@@ -31,7 +31,7 @@ frontend www-http
    default_backend www-backend
 
 frontend www-https
-   bind :443 ssl crt /etc/haproxy/certs/www.ianculp.tech.pem
+   bind :443 ssl crt /etc/letsencrypt/live/www.mossad.tech/fullchain.pem
    reqadd X-Forwarded-Proto:\ https
    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
    use_backend letsencrypt-backend if letsencrypt-acl
@@ -39,8 +39,8 @@ frontend www-https
 
 backend www-backend
    redirect scheme https if !{ ssl_fc }
-   server 1613-web-01 34.73.244.83:80 check
-   server 1613-web-02 35.175.186.218:80 check
+   server 52393-web-01 100.26.231.12:80 check
+   server 52393-web-02 54.197.101.47:80 check
 
 backend letsencrypt-backend
    server letsencrypt 127.0.0.1:54321
