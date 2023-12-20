@@ -1,1 +1,1 @@
-not_empty and 
+not_empty and !empty 
