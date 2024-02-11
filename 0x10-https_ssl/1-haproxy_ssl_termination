@@ -8,6 +8,9 @@ defaults
 
 frontend mossad-tech-frontend
     bind *:443
+    bind *:443 ssl crt /etc/haproxy/certs/www.mossad.tech.pem
+    http-request redirect scheme https unless { ssl_fc }
+    http-request set-header X-Forwarded-Proto https
     default_backend mossad-tech-backend
 
 backend mossad-tech-backend
