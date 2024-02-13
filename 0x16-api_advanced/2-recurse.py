@@ -1,29 +1,27 @@
 #!/usr/bin/python3
 """
-    Task 2
+    Uses Reddit API to get all hot posts
 """
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=None):
-    """ gets the number of subscribers """
-    if after is not None:
-        url = 'https://api.reddit.com/r/' +\
-              '{}/hot.json?after={}'.format(subreddit, after)
-    else:
-        url = 'https://api.reddit.com/r/{}/hot.json'.format(subreddit)
-    header = {'user-agent': 'ianscustomthing'}
+def recurse(subreddit, hot_list=[], after=""):
+    """Get all hot posts"""
+    if after is None:
+        return []
 
-    r = requests.get(url,
-                     headers=header,
-                     allow_redirects=False)
-    rj = r.json()
-    if rj.get('message') == 'Not Found':
-        return
-    chldrn = rj.get('data').get('children')
-    hot_list += [chld.get('data').get('title') for chld in chldrn]
-    after = rj.get('data').get('after')
-    if after is not None:
-        return recurse(subreddit, hot_list, after)
-    else:
-        return hot_list
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    url += f"?limit=100&after={after}"
+    headers = {'user-agent': 'request'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
+
+    if response.status_code != 200:
+        return None
+
+    r_json = response.json()
+    hot_posts_json = r_json.get("data").get("children")
+
+    for post in hot_posts_json:
+        hot_list.append(post.get("data").get("title"))
+
+    return hot_list + recurse(subreddit, [], r_json.get("data").get("after"))
